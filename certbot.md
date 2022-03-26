@@ -1,20 +1,20 @@
-# Установка и конфигурация certbot
+# Let's Encrypt Certbot installation and configuration
 
-## Установка
+## Installing cerbot and its nginx plugin
 
 ```bash
 sudo apt install certbot python3-certbot-nginx
 ```
 
-После установки необходимых сертификатов нужно проверить работоспособность их автообновления:
+After installing the required certificates, check if their auto-renewal is working:
 ```bash
 sudo systemctl status certbot.timer
 sudo certbot renew --dry-run
 ```
 
-## Добавление нового сертификата
+## Adding new sertificate
 
-1. Настраиваем конфигурацию сайта без 443 b SSL. Пример простой конфигурации до установки сертификата.
+1. Configure website without 443 port and SSL. Example of a simple configuration before installing a certificate:
 ```nginx
 server {
         listen 80;
@@ -27,7 +27,7 @@ server {
         }
 }
 ```
-2. Устанавливаем сертификат:
+2. Install certificate:
 ```bash
 certbot -d example.com -d www.example.com
 ```

@@ -1,12 +1,12 @@
-# Установка и конфигурация nginx
+# Nginx installation and configuration
 
-## Установка
+## Installing nginx
 
 ```bash
 sudo apt install nginx
 ```
 
-После установки нужно убедиться, что nginx запущен:
+After installation, make sure that nginx is enabled and started:
 ```bash
 systemctl status nginx
 
@@ -14,16 +14,16 @@ sudo systemctl enable nginx
 sudo systemctl start nginx
 ```
 
-И добавить конфигурации для него в фаервол:
+Also add its configuration to firewall:
 ```bash
 ufw allow "Nginx Full"
 ```
 
-## Конфигурация
+## Configuring nginx
 
-[Онлайн-конфигуратор](https://www.digitalocean.com/community/tools/nginx)
+[Online configuration tool](https://www.digitalocean.com/community/tools/nginx)
 
-Структура /etc/nginx:
+Structure of /etc/nginx:
 ```bash
   conf.d
     # Legacy configs
@@ -36,7 +36,7 @@ ufw allow "Nginx Full"
   nginx.conf
 ```
 
-Структура проекта /var/www/domain:
+Structure of a project /var/www/domain:
 ```bash
 htdocs/code
   # Project files
@@ -50,16 +50,16 @@ temp
   # Directory for temporary files
 ```
 
-## Добавление нового проекта
+## Adding new project
 
-1. Создаем директорию под новый проект в /var/www, например, example.com.
-2. Внутри создаем папки htdocs/code, conf и logs (если нужно, еще и temp).
-3. В htdocs размещаем файлы проекта. Если это Docker-контейнер, то запускаем его.
-4. Если в проекте используется CI/CD через пользователя deployer, выдаем папке с файлами проекта дополнительные права. Внутри не должно находиться файлов, которыми владеют другие пользователи.
+1. Create a directory for the new project in /var/www, for example, example.com.
+2. Inside create the folders htdocs or code, conf and logs (and temp if needed).
+3. Place project files in htdocs or code. If it is a Docker container, run it.
+4. If the project uses CI/CD through the deployer user, give additional rights to the folder with the project files. There must not be any files inside that are owned by other users.
 ```bash
 sudo setfacl -m u:deployer:rwx htdocs
 ```
-5. Настриваем nginx в conf/nginx.conf без 443 порта и SSL.Пример простой конфигурации до установки сертификата.
+5. Configure nginx in conf/nginx.conf without 443 port and SSL. Example of a simple configuration before installing the certificate:
 ```nginx
 server {
         listen 80;
@@ -72,8 +72,8 @@ server {
         }
 }
 ```
-5. Устанавливаем сертификат:
+5. Install the certificate:
 ```bash
 certbot -d example.com -d www.example.com
 ```
-6. Донастраиваем nginx уже под 443 порт.
+6. Finish nginx configuration with 443 port.

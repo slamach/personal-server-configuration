@@ -1,27 +1,26 @@
-# Конфигурация личного сервера
+# Personal server configuration
 
 
-## Аппаратная конфигурация сервера
+## Hardware configuration
 
-Аппаратные характеристики, которые сейчас тестируются на [Beget](https://beget.com/ru):  
+Sufficient configuration for several small projects:  
 - x2 vCPU
-- 2GB RAM
-- 30GB NVMe
-- 250 MB/s Unlimited Traffic
+- 2-4GB RAM
+- 15+GB NVMe
 
-Операционная система: Ubuntu 20.04
+My choice of OS: Ubuntu 20.04
 
 
-## Программная конфигурация сервера
+## Software configuration
 
-### Перенос файлов с локальной машины
+### Transferring files from a local machine
 ```bash
-rsync -rlptoDzP ./local-directory/ slamach@vs01.dmitrysviridov.ru:/remote-path
+rsync -rlptoDzP ./local-directory/ user@example.com:/remote-path
 ```
 
-### Смена имени машины
+### Changing hostname
 ```bash
-sudo hostnamectl set-hostname slamach-vs01
+sudo hostnamectl set-hostname example-vs01
 # Or change it here
 sudo vim /etc/hostname
 
@@ -31,13 +30,13 @@ sudo vim /etc/hosts
 exec bash
 ```
 
-### Создание рабочего пользователя
+### Creating main user
 ```bash
-sudo adduser slamach
-sudo usermod -aG sudo slamach
+sudo adduser user
+sudo usermod -aG sudo user
 ```
 
-### Конфигурация SSH
+### Configuring SSH
 
 ```bash
 # Add SSH-key to ~/.ssh/authorized_keys
@@ -49,7 +48,7 @@ sudo vim /etc/ssh/sshd_config
 sudo systemctl restart ssh
 ```
 
-### Конфигурация файрвола
+### Configuring firewall
 
 ```bash
 sudo vim /etc/default/ufw
@@ -60,9 +59,9 @@ ufw allow OpenSSH
 ufw enable
 ```
 
-### Конфигурация рабочего пользователя
+### Configuring main user
 
-[Конфигурация Bash](.bashrc)
+[My Bash configuration](.bashrc)
 
 ```bash
 touch ~/.hushlogin
@@ -71,8 +70,8 @@ touch /root/.hushlogin
 # Replace ~/.bashrc and /root/.bashrc
 ```
 
-### Создания пользователя для CI/CD
-[Отличная статья для Github Actions](https://zellwk.com/blog/github-actions-deploy/)
+### Creating CI/CD user
+[Nice article about deploying with Github Actions](https://zellwk.com/blog/github-actions-deploy/)
 
 ```bash
 sudo adduser deployer
@@ -84,19 +83,19 @@ ssh-keygen -b 4096
 cat .ssh/key-name.pub >> .ssh/authorized_keys
 ```
 
-## Установка пакетов
+## Installing packages
 
-### Обновление предустановленных пакетов
+### Updating existing packages
 
 ```bash
 sudo apt update && sudo apt upgrade
 ```
 
 ### Nginx
-[Подробная инструкция](nginx.md)
+[Detailed instruction](nginx.md)
 
-### Бот Let's Encrypt
-[Подробная инструкция](certbot.md)
+### Let's Encrypt
+[Detailed instruction](certbot.md)
 
 ### Docker
-[Подробная инструкция](docker.md)
+[Detailed instruction](docker.md)

@@ -1,8 +1,8 @@
-# Установка и конфигурация certbot
+# Docker installation and configuration
 
-## Установка Docker Engine
+## Installing Docker Engine
 
-[Инструкция по установке](https://docs.docker.com/engine/install/ubuntu/)
+[Official instruction](https://docs.docker.com/engine/install/ubuntu/)
 
 ```bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -14,7 +14,7 @@ echo \
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
-После установки нужно убедиться, что docker запущен:
+After installation, make sure that docker is enabled and started:
 ```bash
 systemctl status docker
 
@@ -22,9 +22,9 @@ sudo systemctl enable docker
 sudo systemctl start docker
 ```
 
-## Установка Docker Compose
+## Installing Docker Compose
 
-[Инструкция по установке](https://docs.docker.com/compose/cli-command/#install-on-linux)
+[Official instruction](https://docs.docker.com/compose/cli-command/#install-on-linux)
 
 ```bash
 mkdir -p /usr/local/lib/docker/cli-plugins
@@ -34,9 +34,9 @@ curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compo
 chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 ```
 
-## Добавление нового контейнера
+## Adding new project
 
-Разместить все необходимые файлы, включая docker-compose.yml в папке code проекта.
+Place all the necessary files, including docker-compose.yml in the project folder.
 
 ```bash
 docker-compose -p project-name up -d
